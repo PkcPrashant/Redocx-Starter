@@ -1,0 +1,31 @@
+// To PDF
+var doc = new jsPDF();
+doc.fromHTML(ReactDOMServer.renderToString(<Html2Pdf2 />));
+doc.save("myDocument.pdf");
+
+// To Word - Redocx
+render(<App data={'pkc'}/>).then((stream) => {
+	const file = new Blob([stream.toBuffer()]);
+	saveAs(file, "example.docx");
+});
+
+// To Word - Working Fine - Able to perform doc but not docx
+const element = ReactDOMServer.renderToString(<Html2Pdf2 />);
+const html = `<body>${element}</body>`;
+const url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+saveAs(url, 'document.doc');
+
+
+// To Word - Working - Able to perform doc but not docx
+const element = ReactDOMServer.renderToString(<Html2Pdf2 />);
+const html = `<body>${element}</body>`;  
+const blob = new Blob([html])
+saveAs(blob, 'document.doc');
+
+
+// This is used for IE
+?????????????????????????
+ if(navigator.msSaveOrOpenBlob ){
+    navigator.msSaveOrOpenBlob(blob, filename);
+ }
+?????????????????????????

@@ -13,7 +13,10 @@ const streamToBlob = require('stream-to-blob')
 class Perform extends React.Component {
     handleClick() {
         render(<App data={'pkc'}/>).then((stream) => {
+          console.log('STREAM ', stream)
+          console.log('BUFFER ', stream.toBuffer())
             const file = new Blob([stream.toBuffer()]);
+            console.log('BLOB ', file)
               saveAs(file, "example.docx");
           });
     }
